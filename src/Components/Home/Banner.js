@@ -1,3 +1,4 @@
+// Banner
 import React from 'react';
 
 const Banner = () => {
