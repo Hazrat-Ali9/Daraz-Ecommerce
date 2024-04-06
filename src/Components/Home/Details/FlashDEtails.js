@@ -1,3 +1,4 @@
+// Flash Details
 import React from 'react';
 
 const FlashDEtails = ({product}) => {
