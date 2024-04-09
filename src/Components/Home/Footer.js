@@ -1,16 +1,15 @@
-//Footer
 import React from "react";
 
 const Footer = () => {
   return (
     <div>
-      <footer class="bg-white dark:bg-orange-700 mt-10">
-        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-          <div class="">
+      <footer className="bg-white dark:bg-orange-700 mt-10">
+        <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+          <div className="">
             
-            <div class="grid grid-cols-2 md:grid-cols-4 mx-auto gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-4 mx-auto gap-5">
             <div>
-              <h2 class="mb-6 text-md font-semibold text-gray-900 uppercase dark:text-white">
+              <h2 className="mb-6 text-md font-semibold text-gray-900 uppercase dark:text-white">
                 Stay Connected With Us
               </h2>
               <div className="flex justify-between gap-4">
@@ -53,7 +52,7 @@ const Footer = () => {
               </div>
             </div>
               <div className="mx-3">
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                   Contact Us
                 </h2>
                 <div className="flex items-center gap-2">
@@ -78,7 +77,7 @@ const Footer = () => {
                 <p className="text-white">admin@self-shopping.com</p>
               </div>
               <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                   Menus
                 </h2>
                 <div className="flex items-center gap-2">
@@ -107,7 +106,7 @@ const Footer = () => {
                 </div>
               </div>
               <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                   Legal
                 </h2>
                 <div className="flex items-center gap-2">

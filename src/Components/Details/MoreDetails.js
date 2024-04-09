@@ -1,13 +1,13 @@
-// More Details
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-const MoreDetails = () => {
+const MoreDetails = ({ userId }) => {
   const { id } = useParams();
   const [service, setService] = useState({});
 
   useEffect(() => {
-    const url = `http://localhost:9000/product/${id}`;
+    const url = `http://localhost:7000/product/${id}`;
     console.log(url);
     fetch(url)
       .then((res) => res.json())
@@ -173,7 +173,8 @@ const MoreDetails = () => {
                   </div>
                 </div>
                 <div className="flex justify-between px-5">
-                <button type="button" class="py-2.5 w-full me-2 mb-2 text-sm font-medium text-white focus:outline-none bg-orange-600 rounded-md border hover:bg-gray-100 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-orange-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">Alternative</button>
+                  <Link to = {`/order/${id}`}><button type="button" class="py-2.5 w-full me-2 mb-2 text-sm font-medium text-white focus:outline-none bg-orange-600 rounded-md border hover:bg-gray-100 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-orange-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">Buy Now</button></Link>
+                
                 <button type="button" class="py-2.5 w-full me-2 mb-2 text-sm font-medium text-white focus:outline-none bg-sky-300 rounded-md border hover:bg-gray-100 hover:text-blue-white focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-blue-500 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">Alternative</button>
                 </div>
               </div>

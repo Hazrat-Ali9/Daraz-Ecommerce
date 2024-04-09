@@ -1,4 +1,3 @@
-//Most Details
 import React from 'react';
 
 const MostDetails = ({product}) => {

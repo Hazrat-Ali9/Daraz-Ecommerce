@@ -1,4 +1,3 @@
-//lpg Details
 import React from 'react';
 
 const LpgDetails = ({product}) => {
@@ -19,10 +18,10 @@ const LpgDetails = ({product}) => {
             <div className="mt-5">
               <button
                 type="button"
-                class="text-white bg-red-700 hover:bg-red-800 w-full focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-md px-4 py-2 text-center inline-flex items-center dark:bg-red-700 dark:hover:bg-red-700 dark:focus:ring-blue-800"
+                className="text-white bg-red-700 hover:bg-red-800 w-full focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-md px-4 py-2 text-center inline-flex items-center dark:bg-red-700 dark:hover:bg-red-700 dark:focus:ring-blue-800"
               >
                 <svg
-                  class="w-3.5 h-3.5 me-2"
+                  className="w-3.5 h-3.5 me-2"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"

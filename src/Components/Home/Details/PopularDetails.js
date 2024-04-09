@@ -1,4 +1,3 @@
-// Popular Details
 import React from 'react';
 
 const PopularDetails = ({product}) => {

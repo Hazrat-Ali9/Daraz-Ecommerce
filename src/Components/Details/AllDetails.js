@@ -1,4 +1,3 @@
-// Details
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -8,7 +7,7 @@ const AllDetails = () => {
     const [service, setService] = useState({});
 
     useEffect(() => {
-        const url = `http://localhost:9000/product/${id}`;
+        const url = `http://localhost:7000/product/${id}`;
         console.log(url);
         fetch(url)
             .then(res => res.json())

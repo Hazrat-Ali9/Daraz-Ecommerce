@@ -1,4 +1,3 @@
-//Homejs
 import React from "react";
 import { Link } from "react-router-dom";
 import NewProduct from "../Product/NewProduct";
@@ -16,6 +15,7 @@ import AllDetails from "./Details/AllDetails";
 
 const Home = () => {
   const [products] = useProduct();
+  const accessories = products.filter((item) => item.category == "");
   return (
     <div>
       <img
@@ -238,22 +238,22 @@ const Home = () => {
                   </div>
                 </div>
               </a>
-              <a href="">
+              <Link to="/category/accessories">
                 <div className="card w-28 h-44">
-                  <figure>
-                    <img
-                      className="w-16 h-16 rounded-full"
-                      src="https://self-shopping.com/shopapp/img/categoryimage/Mobile_Accessories.png"
-                      alt="Shoes"
-                    />
-                  </figure>
-                  <div className="card-body">
-                    <h2 className="font-semibold text-sm  mx-auto">
-                      মোবাইল এক্সে..
-                    </h2>
-                  </div>
+                    <figure>
+                        <img
+                            className="w-16 h-16 rounded-full"
+                            src="https://self-shopping.com/shopapp/img/categoryimage/Mobile_Accessories.png"
+                            alt="Mobile Accessories"
+                        />
+                    </figure>
+                    <div className="card-body">
+                        <h2 className="font-semibold text-sm  mx-auto">
+                            Mobile Accessories
+                        </h2>
+                    </div>
                 </div>
-              </a>
+            </Link>
               <a href="">
                 <div className="card w-28 h-44">
                   <figure>

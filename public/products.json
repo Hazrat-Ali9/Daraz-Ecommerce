@@ -21,7 +21,8 @@
         "details": "A shaft may be repaired by laser cladding technology and spray process. Shaft repair kits are also suitable for repairing worn shafts.",
         "price": 1410,
         "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnAbgLsKd_7vR-uub09XL3xqMsFKxE1Q_C0Q9kDjPwAQ&s",
-        "type":"newProduct"
+        "type":"newProduct",
+        "category":"accessories"
       },
       {
         "id": "124e13b9-2d54-4b2f-a74d-a77b362d6ead",

@@ -1,4 +1,3 @@
-//NewHome
 import React from 'react';
 
 const NewHome = ({product}) => {

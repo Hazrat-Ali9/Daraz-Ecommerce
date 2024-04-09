@@ -17,7 +17,7 @@ const Search = () => {
 
     const fetchData = async () => {
         try {
-          const response = await fetch(`http://localhost:9000/product?q=${query}`);
+          const response = await fetch(`http://localhost:7000/product?q=${query}`);
           const data = await response.json();
           const filteredProducts = data.filter(product =>
             product.name.toLowerCase().includes(query.toLowerCase())

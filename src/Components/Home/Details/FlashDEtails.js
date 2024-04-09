@@ -1,4 +1,3 @@
-// Flash Details
 import React from 'react';
 
 const FlashDEtails = ({product}) => {
@@ -21,9 +20,9 @@ const FlashDEtails = ({product}) => {
               </div>
               <div className="mt-2">
                 <dl>
-                  <dd class="flex items-center mb-3">
-                    <div class="w-full bg-yellow-400 rounded h-2.5 dark:bg-yellow-400 me-2">
-                      <div class="bg-yellow-400"></div>
+                  <dd className="flex items-center mb-3">
+                    <div className="w-full bg-yellow-400 rounded h-2.5 dark:bg-yellow-400 me-2">
+                      <div className="bg-yellow-400"></div>
                     </div>
                   </dd>
                 </dl>

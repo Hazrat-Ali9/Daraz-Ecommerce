@@ -1,4 +1,3 @@
-// Exclusive Details
 import React from 'react';
 
 const ExclusiveDetails = ({product}) => {

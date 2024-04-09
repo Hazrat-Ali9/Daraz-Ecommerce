@@ -1,10 +1,19 @@
-// Navbar
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import {Link, useNavigate} from 'react-router-dom';
+import auth from '../../firebase.init';
+import { signOut } from 'firebase/auth';
 
 const Nav = () => {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const [user] = useAuthState(auth);
+
+  const logout = () => {
+    signOut(auth);
+    console.log(user)
+  };
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -14,15 +23,17 @@ const Nav = () => {
     e.preventDefault();
     navigate(`/search?q=${query}`);
   };
+
+
     return (
       <div>
-      <div class="navbar bg-white">
-        <div class="navbar-start">
-          <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost lg:hidden">
+      <div className="navbar bg-white">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <label tabindex="0" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
+                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -37,16 +48,16 @@ const Nav = () => {
             </label>
             <ul
               tabindex="0"
-              class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
                 <a>Item 1</a>
               </li>
               <li tabindex="0">
-                <a class="justify-between">
+                <a className="justify-between">
                   Parent
                   <svg
-                    class="fill-current"
+                    className="fill-current"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -55,7 +66,7 @@ const Nav = () => {
                     <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                   </svg>
                 </a>
-                <ul class="p-2">
+                <ul className="p-2">
                   <li>
                     <a>Submenu 1</a>
                   </li>
@@ -69,13 +80,13 @@ const Nav = () => {
               </li>
             </ul>
           </div>
-          <a class="btn btn-ghost normal-case text-4xl font-bold text-black mx-16">
+          <a className="btn btn-ghost normal-case text-4xl font-bold text-black mx-16">
             electro
           </a>
         </div>
-        <div class="navbar-center hidden lg:flex">
-          <ul class="menu menu-horizontal px-1">
-              <div class="flex rounded">
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">
+              <div className="flex rounded">
               <form onSubmit={handleSubmit}>
       <div className="relative">
         <input
@@ -148,9 +159,30 @@ const Nav = () => {
                 />
               </a>
             </li>
+        
           </ul>
         </div>
-        <div class="navbar-end"></div>
+        <div className="navbar-end">
+        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+              {user && (
+                <li>
+                  <h1 class="justify-between text-md">
+                    {user.displayName}
+                    <span class="badge">New</span>
+                  </h1>
+                </li>
+              )}
+
+              <li>Settings</li>
+              {user ? (
+                <li><button className="btn btn-ghost" onClick={logout}>
+                  Sign Out
+                </button></li>
+              ) : (
+                <Link to="/login">Login</Link>
+              )}
+            </ul>
+        </div>
       </div>
     </div>
     );
