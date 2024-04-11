@@ -1,3 +1,4 @@
+//Register
 import axios from 'axios';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle} from 'react-firebase-hooks/auth';
 import React, { useState } from "react";
