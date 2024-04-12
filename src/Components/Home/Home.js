@@ -483,7 +483,7 @@ const Home = () => {
           ))}
       </div>
       <div className="flex justify-between items-center mt-5 px-5">
-        <div className="h-14 w-44 bg-yellow-500 rounded-r-full">
+        <div className="h-14 w-52 bg-yellow-500 rounded-r-full">
           <h1 className="text-black font-normal text-xl mt-3 px-3">
             এক্সক্লুসিভ প্রোডাক্ট
           </h1>
@@ -502,7 +502,7 @@ const Home = () => {
           ))}
       </div>
       <div className="flex justify-between items-center mt-5 px-5">
-        <div className="h-14 w-44 bg-yellow-500 rounded-r-full">
+        <div className="h-14 w-52 bg-yellow-500 rounded-r-full">
           <h1 className="text-black font-normal text-2xl mt-3 px-3">
             সর্বাধিক বিক্রিত
           </h1>
