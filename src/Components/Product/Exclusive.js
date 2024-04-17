@@ -1,3 +1,4 @@
+// Exclusive
 import React from 'react';
 import useProduct from '../../Hook/useProduct';
 import ExclusiveDetails from './Details/ExclusiveDetails';
