@@ -1,19 +1,42 @@
-// Navbar js
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import {Link, useNavigate} from 'react-router-dom';
-import auth from '../../firebase.init';
-import { signOut } from 'firebase/auth';
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
+import { signOut } from "firebase/auth";
+import useAdmin from "../../Hook/useAdmin";
 const Nav = () => {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
-  const [user] = useAuthState(auth);
+  const [user, userLoading] = useAuthState(auth);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isVendor, setIsVendor] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      fetchUserRole(user.email);
+    }
+  }, [user]);
+
+  const fetchUserRole = async (email) => {
+    try {
+      const adminResponse = await fetch(`http://localhost:7000/admin/${email}`);
+      const adminData = await adminResponse.json();
+      setIsAdmin(adminData.admin);
+
+      const vendorResponse = await fetch(
+        `http://localhost:7000/vendor/${email}`
+      );
+      const vendorData = await vendorResponse.json();
+      setIsVendor(vendorData.vendor);
+    } catch (error) {
+      console.error("Error fetching user roles:", error);
+    }
+  };
 
   const logout = () => {
     signOut(auth);
-    console.log(user)
+    navigate("/");
   };
 
   const handleChange = (e) => {
@@ -25,13 +48,12 @@ const Nav = () => {
     navigate(`/search?q=${query}`);
   };
 
-
-    return (
-      <div>
-      <div className="navbar bg-white">
+  return (
+    <div>
+      <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
-            <label tabindex="0" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -40,33 +62,22 @@ const Nav = () => {
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M4 6h16M4 12h8m-8 6h16"
                 />
               </svg>
-            </label>
+            </div>
             <ul
-              tabindex="0"
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
                 <a>Item 1</a>
               </li>
-              <li tabindex="0">
-                <a className="justify-between">
-                  Parent
-                  <svg
-                    className="fill-current"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                  </svg>
-                </a>
+              <li>
+                <a>Parent</a>
                 <ul className="p-2">
                   <li>
                     <a>Submenu 1</a>
@@ -81,112 +92,108 @@ const Nav = () => {
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-4xl font-bold text-black mx-16">
-            electro
-          </a>
+          <a className="btn btn-ghost text-xl">E-Commerce</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-              <div className="flex rounded">
-              <form onSubmit={handleSubmit}>
-      <div className="relative">
-        <input
-          type="search"
-          id="search-dropdown"
-          className="block p-2.5 w-96 text-sm text-gray-900 rounded-r-full border-t-2 border-b-2 border-yellow-400"
-          placeholder="Search All Product"
-          value={query}
-          onChange={handleChange}
-        />
-        <button
-          type="submit"
-          className="absolute top-0 right-0 p-2.5 w-16 text-sm font-medium text-white bg-yellow-400 rounded-r-full border border-yellow-400 hover:bg-blue-800"
-        >
-          <svg
-            aria-hidden="true"
-            className="w-6 h-6 mx-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
-          <span className="sr-only">Search</span>
-        </button>
-      </div>
-    </form>
+            <Link to="/">
+              <li>
+                <a>Home</a>
+              </li>
+            </Link>
+            <form onSubmit={handleSubmit} class="max-w-md mx-auto">
+              <label
+                for="default-search"
+                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+              >
+                Search
+              </label>
+              <div class="relative">
+                <input
+                  value={query}
+                  onChange={handleChange}
+                  type="search"
+                  id="default-search"
+                  class="block w-full p-3 ps-20 text-sm text-gray-900 border border-gray-500 rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500"
+                />
+                <button
+                  type="submit"
+                  class="text-white absolute end-2.5 bottom-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Search
+                </button>
               </div>
-          
-
-            <li className="mx-16">
-              <a>
-                <img
-                  src="https://static-00.iconduck.com/assets.00/compare-states-icon-256x256-d2kb9dqb.png"
-                  alt=""
-                  className="w-5 h-5"
-                />
-              </a>
-            </li>
-            <li className="-mx-16">
-              <a>
-                <img
-                  src="https://icons-for-free.com/iconfiles/png/256/heart+like+love+icon-1320196394606128344.png"
-                  alt=""
-                  className="w-5 h-5"
-                />
-              </a>
-            </li>
-            <li className="mx-16">
-              <a>
-                <img
-                  src="https://w7.pngwing.com/pngs/290/731/png-transparent-computer-icons-user-username-avatar-person-skill.png"
-                  alt=""
-                  className="w-5 h-5"
-                />
-              </a>
-            </li>
-            <li className="">
-              <a>
-                <img
-                  src="https://www.bankcheckingsavings.com/wp-content/uploads/2016/01/shopping-cart-trick.png"
-                  alt=""
-                  className="w-6 h-6"
-                />
-              </a>
-            </li>
-        
+            </form>
+            {user && !isAdmin && !isVendor && (
+              <Link to="/roles">
+                <li>
+                  <a>Apply For Role</a>
+                </li>
+              </Link>
+            )}
           </ul>
         </div>
         <div className="navbar-end">
-        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-              {user && (
-                <li>
-                  <h1 class="justify-between text-md">
-                    {user.displayName}
-                    <span class="badge">New</span>
-                  </h1>
-                </li>
-              )}
-
-              <li>Settings</li>
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            >
               {user ? (
-                <li><button className="btn btn-ghost" onClick={logout}>
-                  Sign Out
-                </button></li>
+                <div className="navbar-end">
+                  {isAdmin ? (
+                    <Link to="/approved">
+                      <li>
+                        <a className="btn btn-ghost text-md">Admin Dashboard</a>
+                      </li>
+                    </Link>
+                  ) : isVendor ? (
+                    <Link to="/myRole">
+                      <li>
+                        <a className="btn btn-ghost text-md">
+                          Vendor Dashboard
+                        </a>
+                      </li>
+                    </Link>
+                  ) : (
+                    <Link to="/user">
+                      <li>
+                        {" "}
+                        <a className="btn btn-ghost text-xl">User Dashboard</a>
+                      </li>
+                    </Link>
+                  )}
+                  <div className="flex gap-5 px-5 mt-3">
+                    <li>
+                      <a onClick={logout} className="btn text-sm">
+                        Log Out
+                      </a>
+                    </li>
+                  </div>
+                </div>
               ) : (
-                <Link to="/login">Login</Link>
+                <Link to="/login" className="btn">
+                  Login
+                </Link>
               )}
             </ul>
+          </div>
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default Nav;

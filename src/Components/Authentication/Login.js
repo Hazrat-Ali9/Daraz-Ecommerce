@@ -1,4 +1,3 @@
-// Login
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
@@ -206,7 +205,7 @@ const Login = () => {
           </button>
           <p class="text-center text-sm text-white mt-2">
             Don't have an account?{" "}
-            <Link className="text-sky-400 underline" to="/signup">
+            <Link className="text-sky-400 underline" to="/register">
               Sign Up Now
             </Link>
           </p>

@@ -7,14 +7,7 @@
         "img": "https://sgp1.digitaloceanspaces.com/evidentbd/westacebd/cZAh2EDz-Light-Blue-02.jpg",
         "type":"newProduct"
       },
-      {
-        "id": "124e13b9-2d54-4b2f-a74d-a77b362d6ead",
-        "name": "Men T-Shirt",
-        "details": "This is usually where we tell you to take a breath, grab your tools, head to the garage, and we’ll walk you through the repair. We’ll also",
-        "price": 1430,
-        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzpqK0GxChHRgSM3Pt84OMNi9KOhaSvWsYoRJJBlxJeQ&s",
-        "type":"newProduct"
-      },
+      
       {
         "id": "124e13b9-2d54-4b2f-a74d-a77b362d6ead",
         "name": "Iphone 13 Mini",

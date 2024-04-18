@@ -1,4 +1,3 @@
-// Contract
 import React from 'react';
 
 const Contract = () => {

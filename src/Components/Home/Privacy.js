@@ -1,4 +1,3 @@
-// Privacy js
 import React from "react";
 
 const Privacy = () => {

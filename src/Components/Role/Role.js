@@ -10,44 +10,36 @@ const Role = () => {
   const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const [productName, setProductName] = useState("");
-  const [productDescription, setProductDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [role, setRole] = useState("");
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
 
-  const postProduct = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:7000/product", {
-        name: productName,
-        description: productDescription,
-      });
-      const { productId } = response.data;
-      await axios.put(`http://localhost:7000/product/${productId}`, {
-        category,
-      });
-      setSubmitted(true);
-    } catch (error) {
-      console.error("Error submitting product:", error);
-    }
+  const handleImage1Change = (event) => {
+    setImage1(event.target.files[0]);
   };
 
-  const onSubmit = (data, event) => {
-    setSubmitting(true);
-    const formData = {
-      userName: data.userName,
-      email: user?.email || "", // Use user's email if available
-      role: data.role,
-      status: "pending", // Set status to pending when submitting the application
-    };
+  const handleImage2Change = (event) => {
+    setImage2(event.target.files[0]);
+  };
 
-    const url = `http://localhost:7000/role`;
-    fetch(url, {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setSubmitting(true);
+
+    const formData = new FormData();
+    formData.append('name', event.target.name.value);
+    formData.append('email', user ? user.email || "" : "");
+    formData.append('company', event.target.company.value);
+    formData.append('district', event.target.district.value);
+    formData.append('address', event.target.address.value);
+    formData.append('image', image1);
+    formData.append('image', image2);
+    formData.append('role', role);
+    formData.append('status', "pending");
+
+    fetch("http://localhost:7000/user", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+      body: formData,
     })
       .then((res) => res.json())
       .then((result) => {
@@ -60,47 +52,78 @@ const Role = () => {
         setSubmitting(false);
       });
   };
+
+  const handleRoleChange = (event) => {
+    setRole(event.target.value);
+  };
+
   return (
     <div>
-      
-      <div class="min-h-screen flex justify-center items-center">
-        <div class="lg:w-2/5 md:w-1/2 w-2/3">
-          <form class="bg-white p-10 rounded-lg shadow-lg min-w-full">
-            <h1 class="text-center h-10 w-full bg-orange-600 text-lg text-white font-bold font-sans">
+      <div className="min-h-screen flex justify-center items-center">
+        <div className="lg:w-2/5 md:w-1/2 w-2/3">
+          <form
+            onSubmit={onSubmit}
+            className="bg-white p-10 rounded-lg shadow-lg min-w-full"
+          >
+            <h1 className="text-center h-10 w-full bg-orange-600 text-lg text-white font-bold font-sans">
               ভেন্ডর আবেদন ফর্ম
             </h1>
             <div>
-              <label
-                class="text-gray-800 font-semibold block my-3 text-md"
-                for="আপনার নাম"
-              >
+              <label className="text-gray-800 font-semibold block my-3 text-md">
                 আপনার নাম
               </label>
               <input
-                class="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
                 type="text"
-                name="username"
-                id="username"
+                name="name"
                 placeholder="আপনার নাম লিখুন"
               />
             </div>
             <div>
-              <label
-                class="text-gray-800 font-semibold block my-3 text-md"
-                for="আপনার নাম"
-              >
+              <label className="text-gray-800 font-semibold block my-3 text-md">
+                Email
+              </label>
+              <input
+                className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                type="email"
+                name="email"
+                value={user ? user.email || "" : ""}
+                readOnly
+              />
+            </div>
+            <div>
+              <label className="text-gray-800 font-semibold block my-3 text-md">
+                Role
+              </label>
+              <input
+                type="text"
+                className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                value={role}
+                onChange={handleRoleChange}
+                placeholder="ভুলি না"
+              />
+            </div>
+            <div>
+              <label className="text-gray-800 font-semibold block my-3 text-md">
                 প্রতিষ্ঠান এর নাম
               </label>
               <input
-                class="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
                 type="text"
-                name="username"
-                id="username"
+                name="company"
                 placeholder="প্রতিষ্ঠান এর নাম লিখুন"
               />
             </div>
-            <select className="select select-bordered w-full max-w-xs">
-              <option disabled selected>
+            
+            <div>
+              <label className="text-gray-800 font-semibold block my-3 text-md">
+                আপনার জেলা সিলেক্ট করুন
+              </label>
+              <select
+                className="select select-bordered w-full max-w-xs"
+                name="district"
+              >
+               <option disabled selected>
                 আপনার জেলা সিলেক্ট করুন
               </option>
               <option>গাজীপুর</option>
@@ -168,131 +191,65 @@ const Role = () => {
               <option>নেত্রকোনা</option>
               <option>শেরপুর</option>
             </select>
+            </div>
             <div>
-              <label
-                class="text-gray-800 font-semibold block my-3 text-md"
-                for="প্রতিষ্ঠান এর ঠিকানা"
-              >
+              <label className="text-gray-800 font-semibold block my-3 text-md">
                 প্রতিষ্ঠান এর ঠিকানা
               </label>
               <input
-                class="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
                 type="text"
-                name="email"
-                id="email"
+                name="address"
                 placeholder="প্রতিষ্ঠান এর ঠিকানা"
               />
             </div>
-            <select className="select w-full max-w-xs">
-              <option disabled selected>
-                প্রোডাক্ট ক্যাটাগরি সিলেক্ট করুন
-              </option>
-              <option>থ্রি-পিস</option>
-              <option>Mobile Accessories</option>
-              <option>চশমা</option>
-              <option>ঘড়ি</option>
-              <option>স্মার্ট ফোন</option>
-              <option>টি-শার্ট</option>
-              <option>জুতা</option>
-              <option>শাড়ি</option>
-              <option>শার্ট</option>
-              <option>ল্যাপটপ</option>
-              <option>পেন্ট</option>
-              <option>ইলেকট্রনিক্স</option>
-              <option>কিডস</option>
-              <option>ডেস্কটপ</option>
-              <option> কসমেটিক্স</option>
-              <option>গিফট</option>
-            </select>
             <div>
-              <label
-                class="text-gray-800 font-semibold block my-3 text-md"
-                for="কয়েকটি প্রডাক্ট এর নাম "
-              >
-                কয়েকটি প্রডাক্ট এর নাম
-              </label>
-              <textarea
-                class="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
-                type="text"
-                placeholder="উদাহরন প্রোডাক্ট ১, প্রোডাক্ট ২"
-              ></textarea>
-              <input />
-            </div>
-            <div>
-            <label
-                class="text-gray-800 font-semibold block my-3 text-md"
-                for="কয়েকটি প্রডাক্ট এর নাম "
-              >
-                প্রোডাক্ট সেম্পল ছবি ১
-              </label>
-            <input
-              class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-              id="default_size"
-              type="file"
-            />
-            </div>
-            <div>
-            <label
-                class="text-gray-800 font-semibold block my-3 text-md"
-                for="কয়েকটি প্রডাক্ট এর নাম "
-              >
-                প্রোডাক্ট সেম্পল ছবি ২
-              </label>
-            <input
-              class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-              id="default_size"
-              type="file"
-            />
-            </div>
-            <div>
-            <label
-                class="text-gray-800 font-semibold block my-3 text-md"
-                for="কয়েকটি প্রডাক্ট এর নাম "
-              >
+              <label className="text-gray-800 font-semibold block my-3 text-md">
                 আপনার ছবি
               </label>
-            <input
-              class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-              id="default_size"
-              type="file"
-            />
+              <input
+                className="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                type="file"
+                onChange={handleImage1Change}
+              />
             </div>
             <div>
-            <label
-                class="text-gray-800 font-semibold block my-3 text-md"
-                for="কয়েকটি প্রডাক্ট এর নাম "
-              >
+              <label className="text-gray-800 font-semibold block my-3 text-md">
                 আপনার এন আই ডি
               </label>
-            <input
-              class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-              id="default_size"
-              type="file"
-            />
+              <input
+                className="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                type="file"
+                onChange={handleImage2Change}
+              />
             </div>
-            <div class="flex justify-start">
-              <label class="block text-gray-500 font-bold my-4 flex items-center">
+            <div className="flex justify-start">
+              <label className="block text-gray-500 font-bold my-4 flex items-center">
                 <input
-                  class="leading-loose text-pink-600 top-0"
+                  className="leading-loose text-pink-600 top-0"
                   type="checkbox"
                 />
-                <span class="ml-2 text-sm py-2 text-gray-600 text-left">
-          
+                <span className="ml-2 text-sm py-2 text-gray-600 text-left">
                   <a
                     href="#"
-                    class="font-semibold text-black border-b-2 border-gray-200 hover:border-gray-500"
+                    className="font-semibold text-black border-b-2 border-gray-200 hover:border-gray-500"
                   >
-                    আমি এতদ্বারা ঘোষনা করছি যে, উপরের সমস্থ তথ্য সঠিক এবং  
-                  </a><span class="font-semibold text-orange-600 mx-2">সেল্ফ ভেন্ডরশিপ নীতিমালার</span>
-                 <sapn className="text-black">সাথে একমত পোষন করলাম !!!</sapn>
+                    আমি এতদ্বারা ঘোষনা করছি যে, উপরের সমস্থ তথ্য সঠিক এবং
+                  </a>
+                  <span className="font-semibold text-orange-600 mx-2">
+                    সেল্ফ ভেন্ডরশিপ নীতিমালার
+                  </span>
+                  <span className="text-black">সাথে একমত পোষন করলাম !!!</span>
                 </span>
               </label>
             </div>
             <button
+              className="mt-6 block w-full select-none rounded-lg bg-orange-600 py-3 px-6 text-center align-middle font-sans text-md font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               type="submit"
-              class="w-full mt-6 bg-orange-600 rounded-lg px-4 py-2 text-lg text-white tracking-wide font-semibold font-sans"
+              data-ripple-light="true"
+              disabled={submitting}
             >
-              আবেদন করুন
+              {submitting ? "Submitting..." : "Apply Now"}
             </button>
           </form>
         </div>

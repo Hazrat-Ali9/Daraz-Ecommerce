@@ -1,4 +1,3 @@
-// Import All Navbar
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import SideBar from "./Components/Home/SideBar";
 import Home from "./Components/Home/Home";
@@ -31,6 +30,9 @@ import MyOrder from "./Components/Order/MyOrder";
 import Role from "./Components/Role/Role";
 import MyRole from "./Components/Role/MyRole";
 import Category from "./Components/Product/Category";
+import AllProduct from "./Components/Product/AllProduct";
+import Roles from "./Components/Role/Roles";
+import AllRoles from "./Components/Role/AllRoles";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -59,6 +61,23 @@ function App() {
                     />
                   </svg>
                   <Link to="/">হোম</Link>
+                </li>
+                <li className="flex space-x-2 cursor-pointer text-black hover:text-[#EC5252] duration-150">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                    />
+                  </svg>
+                  <Link to="/all">All</Link>
                 </li>
                 <li className="flex space-x-2 cursor-pointer text-black hover:text-[#EC5252] duration-150 mt-2">
                   <svg
@@ -151,6 +170,7 @@ function App() {
           <main className="min-h-screen w-full max-w-screen-2xl mx-auto lg:border-l lg:w-5/6">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/all" element={<AllProduct />} />
               <Route path="/condition" element={<Condition />} />
               <Route path="/about" element={<About />} />
               <Route path="/privacy" element={<Privacy />} />
@@ -179,6 +199,8 @@ function App() {
               <Route path="/myRole" element={<MyRole />} />
               <Route path="/order/:id" element={<Order />} />
               <Route path="/role" element={<Role />} />
+              <Route path="/roles" element={<Roles/>} />
+              <Route path="/allrole" element={<AllRoles/>} />
               <Route path="/category/:name" element={<Category />} />
             </Routes>
           </main>

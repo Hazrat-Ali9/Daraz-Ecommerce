@@ -1,4 +1,3 @@
-// Home Js 
 import React from "react";
 import { Link } from "react-router-dom";
 import NewProduct from "../Product/NewProduct";
@@ -471,7 +470,7 @@ const Home = () => {
           </h1>
         </div>
 
-        <Link to='/favorite'><a className="text-xl font-bold text-red-500" href="">
+        <Link to='/favorite'><a className="text-md font-bold text-red-500" href="">
         সকল প্রোডাক্ট 
         </a></Link>
       </div>
@@ -485,7 +484,7 @@ const Home = () => {
       </div>
       <div className="flex justify-between items-center mt-5 px-5">
         <div className="h-14 w-52 bg-yellow-500 rounded-r-full">
-          <h1 className="text-black font-normal text-xl mt-3 px-3">
+          <h1 className="text-black font-normal text-lg mt-3 px-3">
             এক্সক্লুসিভ প্রোডাক্ট
           </h1>
         </div>
@@ -503,8 +502,8 @@ const Home = () => {
           ))}
       </div>
       <div className="flex justify-between items-center mt-5 px-5">
-        <div className="h-14 w-52 bg-yellow-500 rounded-r-full">
-          <h1 className="text-black font-normal text-2xl mt-3 px-3">
+        <div className="h-14 w-44 bg-yellow-500 rounded-r-full">
+          <h1 className="text-black font-semibold text-lg mt-3 px-3">
             সর্বাধিক বিক্রিত
           </h1>
         </div>
