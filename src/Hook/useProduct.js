@@ -1,3 +1,4 @@
+// use product
 import { useEffect, useState } from "react"
 
 const useProduct =()=>{
