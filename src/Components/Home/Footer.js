@@ -1,3 +1,4 @@
+//footer
 import React from "react";
 
 const Footer = () => {
