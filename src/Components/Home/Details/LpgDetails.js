@@ -1,3 +1,4 @@
+//lpgdetails
 import React from 'react';
 
 const LpgDetails = ({product}) => {
