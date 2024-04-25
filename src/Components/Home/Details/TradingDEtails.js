@@ -1,3 +1,4 @@
+// Trading Deatils:
 import React from 'react';
 
 const TradingDEtails = ({product}) => {
