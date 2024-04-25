@@ -1,3 +1,4 @@
+//Popular Detials
 import React from 'react';
 
 const PopularDetails = ({product}) => {
