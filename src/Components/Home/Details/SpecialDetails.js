@@ -1,3 +1,4 @@
+// Special Deatils :
 import React from 'react';
 
 const SpecialDetails = ({product}) => {
