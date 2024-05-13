@@ -1,8 +1,8 @@
-// Flash Details
+// Flash Details add 
 import React from 'react';
 
 const FlashDEtails = ({product}) => {
-    const {img,name,price} = product
+    const {img,name,price} = product 
     return (
         <div>
             <div className=" w-full bg-base-100 mx-auto mt-5">
